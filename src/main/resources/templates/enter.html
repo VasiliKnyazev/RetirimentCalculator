@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        p {
+            font-size: 25pt;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <form th:action="@{/calculate}">
+        <p>What is your current age?</p>
+        <p><input type="text" th:name="age"/></p>
+        <p>At that age would you like to retire?</p>
+        <p><input type="text" th:name="retireAge"/></p>
+        <p><input type="submit"/></p>
+    </form>
+</center>
+</body>
+</html>
