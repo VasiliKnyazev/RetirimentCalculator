@@ -40,8 +40,16 @@
                 <input type='password' name='password' class="form-control" id="password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary">Sign in</button><p>
-            <p><a th:href="@{/enter}">Calculate Retirement Year</a>
         </form>
+        <p>
+            <form th:action="@{/calculate}">
+            <p>What is your current age?</p>
+            <p><input type="text" th:name="userAge"/></p>
+            <p>At that age would you like to retire?</p>
+            <p><input type="text" th:name="userRetirementYear"/></p>
+            <p><input type="submit"/></p>
+            </form>
+        </p>
     </div>
 </div>
 

@@ -1,6 +1,9 @@
 package com.luxoft.rcalculator.controller;
 
+import com.luxoft.rcalculator.model.dto.RetirementResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -17,16 +20,10 @@ import com.luxoft.rcalculator.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class MainController {
-    private Integer age;
-    private Integer retireAge;
 
     private UserService userService;
 
@@ -35,53 +32,27 @@ public class MainController {
         this.userService = userService;
     }
 
-    //calculator methods
-
-    @GetMapping("/enter")
-    public String enter() {
-        return "enter";
-    }
-
+    //async test method
     @GetMapping("/calculate")
-    public String calculate(@RequestParam(value = "age", required = false) Integer age,
-                            @RequestParam(value = "retireAge", required = false) Integer retireAge,
-                            Model model) {
+    @ResponseBody
+    public ResponseEntity<RetirementResultDTO> sendMessage(@RequestParam(value = "userAge", required = false) String userAge,
+                                                           @RequestParam(value = "userRetirementYear", required = false) String userRetirementYear) {
+        RetirementResultDTO retirementResultDTO = new RetirementResultDTO();
         try {
-            this.age = age;
-            this.retireAge = retireAge;
-            return result(model);
-        } catch (NullPointerException e) {
-            return enter();
+            retirementResultDTO = userService.calculateRetirementYearsLeft(Integer.parseInt(userAge), Integer.parseInt(userRetirementYear));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return new ResponseEntity<>(retirementResultDTO, HttpStatus.OK);
         }
     }
-
-    @GetMapping("/result")
-    public String result(Model model) {
-        try {
-            LocalDate localDate = LocalDate.now();
-            int presentYear = localDate.getYear();
-            int ageDiff = this.retireAge - this.age;
-            if(ageDiff > 0) {
-                model.addAttribute("leftRetireAge", ageDiff);
-                model.addAttribute("presentYear", presentYear);
-                model.addAttribute("retireYear", presentYear + ageDiff);
-            } else {
-                model.addAttribute("leftRetireAge", 0);
-                model.addAttribute("presentYear", presentYear);
-            }
-            return "result";
-        } catch (NullPointerException e) {
-            return enter();
-        }
-    }
-
-    //other methods
 
     @GetMapping(value = "/user")
-    public ModelAndView userPage(@ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("userPage");
-        return modelAndView;
+    public String userPage(@ModelAttribute("user") User user, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        model.addAttribute("user", userDetail);
+        return "userPage";
     }
 
     @GetMapping(value = "/admin")
@@ -104,7 +75,12 @@ public class MainController {
     }
 
     @PostMapping(value = "/admin/edit/{id}+{login}+{name}+{pass}+{email}+{role}")
-    public ModelAndView editUser(@PathVariable("id") String id, @PathVariable("login") String login, @PathVariable("name") String name, @PathVariable("pass") String pass, @PathVariable("email") String email, @PathVariable("role") String role) {
+    public ModelAndView editUser(@PathVariable("id") String id,
+                                 @PathVariable("login") String login,
+                                 @PathVariable("name") String name,
+                                 @PathVariable("pass") String pass,
+                                 @PathVariable("email") String email,
+                                 @PathVariable("role") String role) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
         int uid = Integer.parseInt(id);
