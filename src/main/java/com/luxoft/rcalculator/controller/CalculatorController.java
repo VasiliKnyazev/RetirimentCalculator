@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 
-@Controller
 public class CalculatorController {
-    private Integer age;
+    /*private Integer age;
     private Integer retireAge;
 
     @GetMapping("/")
@@ -49,5 +48,10 @@ public class CalculatorController {
             return enter();
         }
     }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "restPage";
+    }*/
 
 }
