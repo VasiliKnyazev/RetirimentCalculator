@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Retirement Calculator Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         p {
@@ -13,10 +13,12 @@
 <span th:if="${leftRetireAge != 0}">
     <center><p th:text="'You have ' + ${leftRetireAge} + ' years left until you can retire.'" /></center>
     <center><p th:text="'It\'s ' + ${presentYear} + ', so you can retire in ' + ${retireYear} + '.'" /></center>
+    <center><a th:href="@{/}">TO LOGIN PAGE</a></center>
 </span>
 <span th:if="${leftRetireAge == 0}">
     <center><p th:text="'It\'s ' + ${presentYear} + '.'" /></center>
     <center><p th:text="'You can retire this year.'" /></center>
+    <center><a th:href="@{/}">TO LOGIN PAGE</a></center>
 </span>
 </body>
 </html>
