@@ -79,6 +79,7 @@
                             <th>Login</th>
                             <th>Name</th>
                             <th>Password</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -91,16 +92,17 @@
                                 <td th:text="${user.login}"></td>
                                 <td th:text="${user.name}"></td>
                                 <td th:text="${user.password}"></td>
+                                <td th:text="${user.email}"></td>
                                 <td th:text="${user.authorities.iterator().next()}"></td>
 
                                 <td>
                                     <button type="submit" class="btn btn-primary edit"
-                                            th:value="${user.id} + ${' '} + ${user.login} + ${' '} + ${user.name} + ${' '} + ${user.password} + ${' '} + ${user.authorities.iterator().next()}">Edit</button>
+                                            th:value="${user.id} + ${' '} + ${user.login} + ${' '} + ${user.name} + ${' '} + ${user.password} + ${' '} + ${user.email} + ${' '} + ${user.authorities.iterator().next()}">Edit</button>
                                 </td>
 
                                 <td>
                                     <button type="submit" class="btn btn-danger delete"
-                                            th:value="${user.id} + ${' '} + ${user.login} + ${' '} + ${user.name} + ${' '} + ${user.password} + ${' '} + ${user.authorities.iterator().next()}">Delete</button>
+                                            th:value="${user.id} + ${' '} + ${user.login} + ${' '} + ${user.name} + ${' '} + ${user.password} + ${' '} + ${user.email} + ${' '} + ${user.authorities.iterator().next()}">Delete</button>
                                 </td>
 
                             </tr>
@@ -120,6 +122,8 @@
                             <p> <input type="text" name="name" id="name"> </p>
                             <p> <b> Password </b> </p>
                             <p> <input type="text" name="password" id="password"> </p>
+                            <p> <b> Email </b> </p>
+                            <p> <input type="text" name="email" id="email"> </p>
                             <p> <b> Role </b> </p>
                             <p> <label>
                                 <select name="role">
@@ -155,6 +159,8 @@
                 <p><input type="text" id="editName">
                 <p><b>Password</b>
                 <p><input type="text" id="editPass">
+                <p><b>Email</b>
+                <p><input type="text" id="editEmail">
                 <p><b>Role</b>
                     <!--<p><input type="text" id="editRole">-->
                 <p> <label>
@@ -191,6 +197,8 @@
                 <p><input type="text" id="deleteName" disabled>
                 <p><b>Password</b>
                 <p><input type="text" id="deletePass" disabled>
+                <p><b>Email</b>
+                <p><input type="text" id="deleteEmail" disabled>
                 <p><b>Role</b>
                 <p><input type="text" id="deleteRole" disabled>
             </div>

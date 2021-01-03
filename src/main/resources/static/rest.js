@@ -12,6 +12,7 @@ $(function(){
                     + data[i].login + '</td><td>'
                     + data[i].name + '</td><td>'
                     + data[i].password + '</td><td>'
+                    + data[i].email + '</td><td>'
                     + data[i].roles[0].role + '</td><td>'
                     + '<button type="button" class="btn btn-primary" onclick="showUpdateModal(' + data[i].id + ')">Edit</button>' + '</td><td>'
                     + '<button type="button" class="btn btn-danger" onclick="deleteUser(' + userId + ')">Delete</button>' + '</td><tr>');
@@ -25,6 +26,7 @@ function createUser() {
     let createLogin = document.getElementById("createLogin").value;
     let createName = document.getElementById("createName").value;
     let createPass = document.getElementById("createPass").value;
+    let createEmail = document.getElementById("createEmail").value;
     let createRole = document.getElementById("createRole").value;
     let createRoleId;
     if(createRole === 'ROLE_ADMIN') {
@@ -43,6 +45,7 @@ function createUser() {
             name: createName,
             login: createLogin,
             password: createPass,
+            email: createEmail,
             roles: [
                 {
                     id: createRoleId,
@@ -74,11 +77,13 @@ function showUpdateModal(id) {
             let updateLogin = data.login;
             let updateName = data.name;
             let updatePass = data.password;
+            let updateEmail = data.email;
             let updateRole = data.roles[0].role;
             $("#updateID").val(updateId);
             $("#updateLogin").val(updateLogin);
             $("#updateName").val(updateName);
             $("#updatePass").val(updatePass);
+            $("#updateEmail").val(updateEmail);
             $("#updateRole").val(updateRole);
             $("#updateModal").modal('show');
             $(".updateSubmit").click(function () {
@@ -86,6 +91,7 @@ function showUpdateModal(id) {
                 let updateLogin = document.getElementById("updateLogin").value;
                 let updateName = document.getElementById("updateName").value;
                 let updatePass = document.getElementById("updatePass").value;
+                let updateEmail = document.getElementById("updateEmail").value;
                 let updateRole = document.getElementById("updateRole").value;
                 let updateRoleId;
                 if(updateRole === 'ROLE_ADMIN') {
@@ -105,6 +111,7 @@ function showUpdateModal(id) {
                         name: updateName,
                         login: updateLogin,
                         password: updatePass,
+                        email: updateEmail,
                         roles: [
                             {
                                 id: updateRoleId,

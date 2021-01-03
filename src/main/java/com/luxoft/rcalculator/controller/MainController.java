@@ -103,15 +103,15 @@ public class MainController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/admin/edit/{id}+{login}+{name}+{pass}+{role}")
-    public ModelAndView editUser(@PathVariable("id") String id, @PathVariable("login") String login, @PathVariable("name") String name, @PathVariable("pass") String pass, @PathVariable("role") String role) {
+    @PostMapping(value = "/admin/edit/{id}+{login}+{name}+{pass}+{email}+{role}")
+    public ModelAndView editUser(@PathVariable("id") String id, @PathVariable("login") String login, @PathVariable("name") String name, @PathVariable("pass") String pass, @PathVariable("email") String email, @PathVariable("role") String role) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
         int uid = Integer.parseInt(id);
         if(pass.contains("|")){
             pass = pass.replace("|", "/");
         }
-        User editUser = new User(uid, name, login, pass);
+        User editUser = new User(uid, name, login, pass, email);
         Set<Role> roles = new HashSet<>();
         roles.add(userService.getRole(role));
         editUser.setRoles(roles);
