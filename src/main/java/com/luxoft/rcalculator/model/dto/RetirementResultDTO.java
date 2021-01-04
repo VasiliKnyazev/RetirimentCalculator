@@ -11,4 +11,5 @@ public class RetirementResultDTO {
     private Integer userAge;
     private Integer presentYear;
     private Integer canRetireYear;
+    private String canRetireMessage;
 }

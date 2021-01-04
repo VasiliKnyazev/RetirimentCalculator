@@ -40,15 +40,14 @@ public class UserServiceImpl implements UserService {
             retirementResultDTO.setUserAge(userAge);
             retirementResultDTO.setPresentYear(presentYear);
             retirementResultDTO.setCanRetireYear(canRetireYear);
-            System.out.println("You have" + ageDiff + "years left until you can retire.");
-            System.out.println("It's " + presentYear + ". So you can retire in " + canRetireYear + ".");
+            retirementResultDTO.setCanRetireMessage("You have " + ageDiff + " years left until you can retire. It's " + presentYear + ". So you can retire in " + canRetireYear + ".");
         } else {
             retirementResultDTO.setUserAge(userAge);
             retirementResultDTO.setPresentYear(presentYear);
             retirementResultDTO.setCanRetireYear(presentYear);
-            System.out.println("It's " + presentYear + ".");
-            System.out.println("You can retire this year.");
+            retirementResultDTO.setCanRetireMessage("It's " + presentYear + ". You can retire this year.");
         }
+        System.out.println(retirementResultDTO.getCanRetireMessage());
         return retirementResultDTO;
     }
 
