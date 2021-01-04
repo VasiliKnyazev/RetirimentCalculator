@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script th:src="@{userRetirementYear.js}"></script>
     <style>
         .jumbotron{
             height: 100vh;
@@ -41,15 +42,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Sign in</button><p>
         </form>
-        <p>
-            <form th:action="@{/calculate}">
-            <p>What is your current age?</p>
-            <p><input type="text" th:name="userAge"/></p>
-            <p>At that age would you like to retire?</p>
-            <p><input type="text" th:name="userRetirementYear"/></p>
-            <p><input type="submit"/></p>
-            </form>
-        </p>
+        <div id="userCanRetirementYearDiv"></div>
     </div>
 </div>
 

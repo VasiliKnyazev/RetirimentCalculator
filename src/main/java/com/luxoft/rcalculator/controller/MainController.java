@@ -1,9 +1,6 @@
 package com.luxoft.rcalculator.controller;
 
-import com.luxoft.rcalculator.model.dto.RetirementResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -30,21 +27,6 @@ public class MainController {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    //async test method
-    @GetMapping("/calculate")
-    @ResponseBody
-    public ResponseEntity<RetirementResultDTO> sendMessage(@RequestParam(value = "userAge", required = false) String userAge,
-                                                           @RequestParam(value = "userRetirementYear", required = false) String userRetirementYear) {
-        RetirementResultDTO retirementResultDTO = new RetirementResultDTO();
-        try {
-            retirementResultDTO = userService.calculateRetirementYearsLeft(Integer.parseInt(userAge), Integer.parseInt(userRetirementYear));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return new ResponseEntity<>(retirementResultDTO, HttpStatus.OK);
-        }
     }
 
     @GetMapping(value = "/user")

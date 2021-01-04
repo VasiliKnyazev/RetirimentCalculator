@@ -1,6 +1,7 @@
 package com.luxoft.rcalculator.controller.rest;
 
 import com.luxoft.rcalculator.model.User;
+import com.luxoft.rcalculator.model.dto.RetirementResultDTO;
 import com.luxoft.rcalculator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,5 +54,18 @@ public class UserRestController {
     public ResponseEntity<User> editUser(@RequestBody User user) {
         userService.edit(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/rest/users/calculate/{userAge}+{userRetirementAge}")
+    public ResponseEntity<RetirementResultDTO> calculateUserCanRetirementYear(@PathVariable(value = "userAge", required = false) String userAge,
+                                                                              @PathVariable(value = "userRetirementAge", required = false) String userRetirementAge) {
+        RetirementResultDTO retirementResultDTO = new RetirementResultDTO(0, 0, 0);
+        try {
+            retirementResultDTO = userService.calculateUserCanRetirementYear(Integer.parseInt(userAge), Integer.parseInt(userRetirementAge));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return new ResponseEntity<>(retirementResultDTO, HttpStatus.OK);
+        }
     }
 }

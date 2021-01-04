@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
 
     //async test method
-    RetirementResultDTO calculateRetirementYearsLeft(int userAge, int userRetirementYear);
+    RetirementResultDTO calculateUserCanRetirementYear(int userAge, int userRetirementYear);
 
     List<User> findAll();
 
