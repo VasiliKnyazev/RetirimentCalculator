@@ -1,3 +1,5 @@
+let count = 0;
+
 $(function(){
     $('#userCanRetirementYearDiv').append('<p><h5>Calculate Retirement Year</h5></p>' +
         '<div class="form-group">' +
@@ -10,11 +12,10 @@ $(function(){
         '</div>' +
         '<div class="form-group">' +
         '<label for="userMailAddressId"></label>' +
-        '<input th:type="text" name="userMailAddress" class="form-control" id="userMailAddressId" placeholder="Your Mail Address">' +
+        '<input th:type="text" name="userMailAddress" class="form-control" id="userMailAddressId" placeholder="Your Email (Optional)">' +
         '</div>' +
         '<p><button type="button" class="btn btn-info" onclick="calculate()">Calculate</button>' +
         '<div class="form-group">' +
-        '<div id="userCanRetirementYearDivInside">' +
         '</div>');
 });
 
@@ -22,6 +23,8 @@ function calculate(){
     let userAge = document.getElementById("userAgeId").value;
     let userRetirementAge = document.getElementById("userRetirementAgeId").value;
     let userMailAddress = document.getElementById("userMailAddressId").value;
+    count = count + 1;
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
     $.ajax({
         headers: {
@@ -41,8 +44,7 @@ function calculate(){
         contentType: "application/json",
         dataType: 'json',
         success: function(data) {
-            $('#userCanRetirementYearDivInside').append(
-                '<textarea th:type="text" class="form-control" placeholder="' + data.canRetireMessage + '" disabled>');
+            $('#userCanRetirementYearDivInside').append('<wbr><h5>' + '<font color="' + randomColor + '">Result №' + count + '</font>: ' + data.canRetireMessage + '</h5>');
         }
     });
 }
