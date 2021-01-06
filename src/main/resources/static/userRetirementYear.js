@@ -22,13 +22,27 @@ function calculate(){
     let userAge = document.getElementById("userAgeId").value;
     let userRetirementAge = document.getElementById("userRetirementAgeId").value;
     let userMailAddress = document.getElementById("userMailAddressId").value;
+
     $.ajax({
-        url: 'rest/users/calculate/' + userAge + "+" + userRetirementAge + "+" + userMailAddress,
-        type: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: 'POST',
+        url: 'rest/users/calculate',
+        data: JSON.stringify({
+            userAge: userAge,
+            presentYear: null,
+            userRetirementAge: userRetirementAge,
+            userCanRetireYear: null,
+            canRetireMessage: null,
+            userMailAddress: userMailAddress,
+        }),
+        contentType: "application/json",
         dataType: 'json',
         success: function(data) {
             $('#userCanRetirementYearDivInside').append(
-                '<input th:type="text" class="form-control" placeholder="' + 'It\'s ' + data.presentYear + '. You can retire in ' + data.canRetireYear + '" disabled></div>')
+                '<input th:type="text" class="form-control" placeholder="' + 'It\'s ' + data.presentYear + '. You can retire in ' + data.canRetireYear + '" disabled></div>');
         }
     });
 }

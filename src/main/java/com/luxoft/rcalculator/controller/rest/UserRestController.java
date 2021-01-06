@@ -59,14 +59,11 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/rest/users/calculate/{userAge}+{userRetirementAge}+{userEmail}")
-    public ResponseEntity<RetirementResultDTO> calculateUserCanRetirementYear(@PathVariable(value = "userAge", required = false) String userAge,
-                                                                              @PathVariable(value = "userRetirementAge", required = false) String userRetirementAge,
-                                                                              @PathVariable(value = "userEmail", required = false) String userEmail) {
-        RetirementResultDTO retirementResultDTO = new RetirementResultDTO();
+    @PostMapping("/rest/users/calculate")
+    public ResponseEntity<RetirementResultDTO> calculateUserCanRetirementYear(@RequestBody RetirementResultDTO retirementResultDTO) {
         try {
-            retirementResultDTO = userService.calculateUserCanRetirementYear(Integer.parseInt(userAge), Integer.parseInt(userRetirementAge));
-            mailService.sendCanRetirementYearMessage("Retirement Calculator Project", "rcproject@mail.ru", userEmail, retirementResultDTO.getCanRetireMessage());
+            retirementResultDTO = userService.calculateUserCanRetirementYear(retirementResultDTO);
+            mailService.sendCanRetirementYearMessage("Retirement Calculator Project", "rcproject@mail.ru", retirementResultDTO.getUserMailAddress(), retirementResultDTO.getCanRetireMessage());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class RetirementResultDTO {
     private Integer userAge;
     private Integer presentYear;
-    private Integer canRetireYear;
+    private Integer userRetirementAge;
+    private Integer userCanRetireYear;
     private String canRetireMessage;
+    private String userMailAddress;
 }

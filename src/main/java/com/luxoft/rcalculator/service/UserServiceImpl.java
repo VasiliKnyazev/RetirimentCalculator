@@ -29,22 +29,17 @@ public class UserServiceImpl implements UserService {
         return this.roleRepository = roleRepository;
     }
 
-    //async test method
     @Override
-    public RetirementResultDTO calculateUserCanRetirementYear(int userAge, int userRetirementAge) {
-        RetirementResultDTO retirementResultDTO = new RetirementResultDTO();
+    public RetirementResultDTO calculateUserCanRetirementYear(RetirementResultDTO retirementResultDTO) {
         int presentYear = LocalDate.now().getYear();
-        int ageDiff = userRetirementAge - userAge;
+        int ageDiff = retirementResultDTO.getUserRetirementAge() - retirementResultDTO.getUserAge();
+        retirementResultDTO.setPresentYear(presentYear);
         if(ageDiff > 0) {
             int canRetireYear = presentYear + ageDiff;
-            retirementResultDTO.setUserAge(userAge);
-            retirementResultDTO.setPresentYear(presentYear);
-            retirementResultDTO.setCanRetireYear(canRetireYear);
+            retirementResultDTO.setUserCanRetireYear(canRetireYear);
             retirementResultDTO.setCanRetireMessage("You have " + ageDiff + " years left until you can retire. It's " + presentYear + ". So you can retire in " + canRetireYear + ".");
         } else {
-            retirementResultDTO.setUserAge(userAge);
-            retirementResultDTO.setPresentYear(presentYear);
-            retirementResultDTO.setCanRetireYear(presentYear);
+            retirementResultDTO.setUserCanRetireYear(presentYear);
             retirementResultDTO.setCanRetireMessage("It's " + presentYear + ". You can retire this year.");
         }
         System.out.println(retirementResultDTO.getCanRetireMessage());
@@ -83,10 +78,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void edit(User user) {
-        if(user.getPassword().equals(findById(user.getId()).getPassword())) {
-            userRepository.save(user);
-        } else {
-            userRepository.save(user);
-        }
+        userRepository.save(user);
     }
 }

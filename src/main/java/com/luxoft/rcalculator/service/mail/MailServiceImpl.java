@@ -26,9 +26,9 @@ public class MailServiceImpl implements MailService {
         };
         try {
             emailSender.send(messagePreparator);
-            System.out.println("Sending invitation to " + emailTo + " was successful");
+            System.out.println("Sending retirement result to " + emailTo + " was successful");
         } catch (MailException e) {
-            System.out.println("Sending invitation to " + emailTo + " failed");
+            System.out.println("Sending retirement result to " + emailTo + " failed");
             e.printStackTrace();
         }
     }
