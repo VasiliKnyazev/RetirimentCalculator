@@ -5,7 +5,6 @@ import com.luxoft.rcalculator.dao.UserRepository;
 import com.luxoft.rcalculator.model.Role;
 import com.luxoft.rcalculator.model.User;
 import com.luxoft.rcalculator.model.dto.RetirementResultDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,14 +18,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
-    @Autowired
-    public UserRepository setUserRepository(UserRepository userRepository){
-        return this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public RoleRepository setUserRepository(RoleRepository roleRepository){
-        return this.roleRepository = roleRepository;
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -59,6 +53,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByLogin(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override

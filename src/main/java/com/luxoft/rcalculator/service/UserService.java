@@ -16,6 +16,8 @@ public interface UserService {
 
     User findByLogin(String login);
 
+    User findByEmail(String login);
+
     void add(User user);
 
     void deleteById(int userId);

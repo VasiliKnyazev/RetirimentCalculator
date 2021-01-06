@@ -29,20 +29,20 @@ function calculate(){
             'Content-Type': 'application/json'
         },
         type: 'POST',
-        url: 'rest/users/calculate',
+        url: '/calculate',
         data: JSON.stringify({
             userAge: userAge,
             presentYear: null,
             userRetirementAge: userRetirementAge,
             userCanRetireYear: null,
             canRetireMessage: null,
-            userMailAddress: userMailAddress,
+            userMailAddress: userMailAddress != null ? userMailAddress : null,
         }),
         contentType: "application/json",
         dataType: 'json',
         success: function(data) {
             $('#userCanRetirementYearDivInside').append(
-                '<input th:type="text" class="form-control" placeholder="' + 'It\'s ' + data.presentYear + '. You can retire in ' + data.canRetireYear + '" disabled></div>');
+                '<textarea th:type="text" class="form-control" placeholder="' + data.canRetireMessage + '" disabled>');
         }
     });
 }

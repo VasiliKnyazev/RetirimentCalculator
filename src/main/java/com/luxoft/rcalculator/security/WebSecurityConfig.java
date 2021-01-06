@@ -1,6 +1,5 @@
 package com.luxoft.rcalculator.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,18 +12,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private AuthProvider authProvider;
-
-    @Autowired
-    @Qualifier("userDetailsService")
-    UserDetailsService userDetailsService;
-
-    @Autowired
+    private UserDetailsService userDetailsService;
     private SecuritySuccessHandler securitySuccessHandler;
 
-    @Autowired
-    public void setSecuritySuccessHandler(SecuritySuccessHandler securitySuccessHandler) {
+    public WebSecurityConfig(AuthProvider authProvider,
+                             @Qualifier("userDetailsService") UserDetailsService userDetailsService,
+                             SecuritySuccessHandler securitySuccessHandler) {
+        this.authProvider = authProvider;
+        this.userDetailsService = userDetailsService;
         this.securitySuccessHandler = securitySuccessHandler;
     }
 
@@ -32,8 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/rest**", "/login**").permitAll()
-                .antMatchers("/admin/**")
+                .antMatchers("/", "/login**").permitAll()
+                .antMatchers("/admin/**", "/rest**")
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/user/**")
                 .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")

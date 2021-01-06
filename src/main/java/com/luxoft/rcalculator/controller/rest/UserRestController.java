@@ -1,10 +1,7 @@
 package com.luxoft.rcalculator.controller.rest;
 
 import com.luxoft.rcalculator.model.User;
-import com.luxoft.rcalculator.model.dto.RetirementResultDTO;
 import com.luxoft.rcalculator.service.UserService;
-import com.luxoft.rcalculator.service.mail.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +13,9 @@ import java.util.List;
 public class UserRestController {
 
     private UserService userService;
-    private MailService mailService;
 
-    @Autowired
-    public UserRestController(UserService userService, MailService mailService) {
+    public UserRestController(UserService userService) {
         this.userService = userService;
-        this.mailService = mailService;
     }
 
     @GetMapping("/rest")
@@ -59,15 +53,4 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/rest/users/calculate")
-    public ResponseEntity<RetirementResultDTO> calculateUserCanRetirementYear(@RequestBody RetirementResultDTO retirementResultDTO) {
-        try {
-            retirementResultDTO = userService.calculateUserCanRetirementYear(retirementResultDTO);
-            mailService.sendCanRetirementYearMessage("Retirement Calculator Project", "rcproject@mail.ru", retirementResultDTO.getUserMailAddress(), retirementResultDTO.getCanRetireMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return new ResponseEntity<>(retirementResultDTO, HttpStatus.OK);
-        }
-    }
 }
