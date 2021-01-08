@@ -60,7 +60,7 @@ function createUser() {
         contentType: "application/json",
         dataType: 'json',
         success: function() {
-            window.location.href = "/rest";
+            window.location.href = "/admin";
         }
     });
 }
@@ -126,7 +126,7 @@ function showUpdateModal(id) {
                     contentType: "application/json",
                     dataType: 'json',
                     success: function() {
-                        window.location.href = "/rest";
+                        window.location.href = "/admin";
                     }
                 });
             });
@@ -146,7 +146,7 @@ function deleteUser(userId) {
         contentType: "application/json",
         dataType: 'json',
         success: function() {
-            window.location.href = "/rest";
+            window.location.href = "/admin";
         }
     });
 }

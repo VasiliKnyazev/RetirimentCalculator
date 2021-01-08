@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.luxoft.rcalculator.model.Role;
 import com.luxoft.rcalculator.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +20,6 @@ import com.luxoft.rcalculator.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.*;
 
 @Controller
 public class MainController {
@@ -52,51 +50,7 @@ public class MainController {
 
     @GetMapping(value = "/admin")
     public String adminPage(Model model) {
-        List<User> users = userService.findAll();
-        users.sort(Comparator.comparing(User::getId));
-        model.addAttribute("userList", users);
         return "adminPage";
-    }
-
-    @PostMapping(value = "/admin/add")
-    public ModelAndView addUser(@ModelAttribute("user") User user, @RequestParam("role") String role) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin");
-        Set<Role> roles = new HashSet<>();
-        roles.add(userService.getRole(role));
-        user.setRoles(roles);
-        userService.add(user);
-        return modelAndView;
-    }
-
-    @PostMapping(value = "/admin/edit/{id}+{login}+{name}+{pass}+{email}+{role}")
-    public ModelAndView editUser(@PathVariable("id") String id,
-                                 @PathVariable("login") String login,
-                                 @PathVariable("name") String name,
-                                 @PathVariable("pass") String pass,
-                                 @PathVariable("email") String email,
-                                 @PathVariable("role") String role) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin");
-        int uid = Integer.parseInt(id);
-        if(pass.contains("|")){
-            pass = pass.replace("|", "/");
-        }
-        User editUser = new User(uid, name, login, pass, email);
-        Set<Role> roles = new HashSet<>();
-        roles.add(userService.getRole(role));
-        editUser.setRoles(roles);
-        userService.edit(editUser);
-        return modelAndView;
-    }
-
-    @PostMapping(value="/admin/delete/{id}")
-    public ModelAndView deleteUser(@PathVariable("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin");
-        User user = userService.findById(id);
-        userService.deleteById(user.getId());
-        return modelAndView;
     }
 
     @RequestMapping(value = { "/", "/login" }, method = {RequestMethod.GET, RequestMethod.POST})

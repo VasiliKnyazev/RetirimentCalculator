@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script th:src="@{modal.js}"></script>
+    <script th:src="@{rest.js}"></script>
     <style>
         body {
             overflow-x: hidden;
@@ -25,7 +25,7 @@
         .col-lg-10 {
             height: 100vh;
             padding-top: 25px;
-            padding-left: 50px;
+            padding-left: 30px;
         }
         .modal-body {
             display: block;
@@ -72,42 +72,8 @@
                 <div id="usersTable" class="container tab-pane active"><br>
                     <!--inside "Users table" pane-->
                     All users
-                    <table id="user-table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Login</th>
-                            <th>Name</th>
-                            <th>Password</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody id="table-body">
-                        <th:block th:each="user : ${userList}">
-                            <tr>
-                                <td th:text="${user.id}"></td>
-                                <td th:text="${user.login}"></td>
-                                <td th:text="${user.name}"></td>
-                                <td th:text="${user.password}"></td>
-                                <td th:text="${user.email}"></td>
-                                <td th:text="${user.authorities.iterator().next()}"></td>
-
-                                <td>
-                                    <button type="submit" class="btn btn-primary edit"
-                                            th:value="${user.id} + ${' '} + ${user.login} + ${' '} + ${user.name} + ${' '} + ${user.password} + ${' '} + ${user.email} + ${' '} + ${user.authorities.iterator().next()}">Edit</button>
-                                </td>
-
-                                <td>
-                                    <button type="submit" class="btn btn-danger delete"
-                                            th:value="${user.id} + ${' '} + ${user.login} + ${' '} + ${user.name} + ${' '} + ${user.password} + ${' '} + ${user.email} + ${' '} + ${user.authorities.iterator().next()}">Delete</button>
-                                </td>
-
-                            </tr>
-                        </th:block>
-                        </tbody>
+                    <table id="userList" class="table table-striped">
+                        <tr><td>Id</td><td>Login</td><td>Name</td><td>Password</td><td>Email</td><td>Role</td><td>Edit</td><td>Delete</td></tr>
                     </table>
                     <!--end of "Users table" pane-->
                 </div>
@@ -115,23 +81,23 @@
                     <!--inside "New user" pane-->
                     Add new user
                     <div class="container text-center">
-                        <form th:action="@{/admin/add}" method="post">
+                        <form>
                             <p> <b> Login </b> </p>
-                            <p> <input type="text" name="login" id="login"> </p>
+                            <p> <input type="text" name="login" id="createLogin"> </p>
                             <p> <b> Name </b> </p>
-                            <p> <input type="text" name="name" id="name"> </p>
+                            <p> <input type="text" name="name" id="createName"> </p>
                             <p> <b> Password </b> </p>
-                            <p> <input type="text" name="password" id="password"> </p>
+                            <p> <input type="text" name="password" id="createPass"> </p>
                             <p> <b> Email </b> </p>
-                            <p> <input type="text" name="email" id="email"> </p>
+                            <p> <input type="text" name="email" id="createEmail"> </p>
                             <p> <b> Role </b> </p>
                             <p> <label>
-                                <select name="role">
+                                <select name="role" id="createRole">
                                     <option value="ROLE_USER">user</option>
                                     <option value="ROLE_ADMIN">admin</option>
                                 </select>
                             </label> </p>
-                            <p> <button type="submit" class="btn btn-success">Add new user</button> </p>
+                            <p> <button type="button" class="btn btn-success" onclick="createUser();">Create user</button> </p>
                         </form>
                     </div>
                     <!--end of "New user" pane-->
@@ -141,30 +107,29 @@
     </div>
 </div>
 
-<!--Edit Modal-->
-<div id="editModal" class="modal fade" role="dialog">
+<!--UPDATE MODAL-->
+<div id="updateModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="modal-content" style="background-color:rgb(235,235,235);">
             <div class="modal-header">
                 <h4 class="modal-title">Edit user</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <p><b>ID</b>
-                <p><input type="text" id="editID" disabled>
+                <p><input type="text" id="updateID" disabled>
                 <p><b>Login</b>
-                <p><input type="text" id="editLogin">
+                <p><input type="text" id="updateLogin">
                 <p><b>Name</b>
-                <p><input type="text" id="editName">
+                <p><input type="text" id="updateName">
                 <p><b>Password</b>
-                <p><input type="text" id="editPass">
+                <p><input type="text" id="updatePass">
                 <p><b>Email</b>
-                <p><input type="text" id="editEmail">
+                <p><input type="text" id="updateEmail">
                 <p><b>Role</b>
-                    <!--<p><input type="text" id="editRole">-->
                 <p> <label>
-                    <select id="editRole">
+                    <select id="updateRole">
                         <option value="ROLE_USER">user</option>
                         <option value="ROLE_ADMIN">admin</option>
                     </select>
@@ -172,13 +137,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary editSubmit">Edit</button>
+                <button type="button" class="btn btn-primary updateSubmit">Edit</button>
             </div>
         </div>
     </div>
 </div>
 
-<!--Delete Modal-->
+<!--Delete Modal Unused-->
 <div id="deleteModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
