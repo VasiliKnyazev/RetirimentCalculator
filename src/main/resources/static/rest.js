@@ -6,7 +6,6 @@ $(function(){
         dataType: 'json',
         success: function(data) {
             for(let i = 0; i < data.length; i++){
-                let userId = data[i].id;
                 $('#userList').append('<tr><td>'
                     + data[i].id + '</td><td>'
                     + data[i].login + '</td><td>'
@@ -15,7 +14,7 @@ $(function(){
                     + data[i].email + '</td><td>'
                     + data[i].roles[0].role + '</td><td>'
                     + '<button type="button" class="btn btn-primary" onclick="showUpdateModal(' + data[i].id + ')">Edit</button>' + '</td><td>'
-                    + '<button type="button" class="btn btn-danger" onclick="deleteUser(' + userId + ')">Delete</button>' + '</td><tr>');
+                    + '<button type="button" class="btn btn-danger" onclick="deleteUser(' + data[i].id + ')">Delete</button>' + '</td><tr>');
             }
         }
     });

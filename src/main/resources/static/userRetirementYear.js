@@ -39,7 +39,7 @@ function calculate(){
             userRetirementAge: userRetirementAge,
             userCanRetireYear: null,
             canRetireMessage: null,
-            userMailAddress: userMailAddress != null ? userMailAddress : null,
+            userMailAddress: userMailAddress !== null ? userMailAddress : null,
         }),
         contentType: "application/json",
         dataType: 'json',
