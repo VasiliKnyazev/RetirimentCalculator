@@ -5,6 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -17,15 +20,23 @@ public class User implements UserDetails {
     @JoinTable(name = "roles")
     private Integer id;
 
+    @NotNull
+    @Size(min = 3, max = 30)
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull
+    @Size(min = 3, max = 30)
     @Column(name = "login", nullable = false, unique = true)
     private String login;
 
+    @NotNull
+    @Size(min = 3, max = 30)
     @Column(name = "password", nullable = false)
     private String password;
 
+    @NotNull
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 

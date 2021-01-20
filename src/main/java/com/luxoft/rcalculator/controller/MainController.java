@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.luxoft.rcalculator.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -87,7 +88,7 @@ public class MainController {
         return error;
     }
 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    @GetMapping(value = "/403")
     public ModelAndView accessDenied() {
         ModelAndView model = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -123,7 +124,7 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
         userService.add(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
