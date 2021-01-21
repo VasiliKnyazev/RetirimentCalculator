@@ -16,7 +16,7 @@ public interface UserService {
 
     User findByLogin(String login);
 
-    User findByEmail(String login);
+    User findByEmail(String email);
 
     void add(User user);
 
