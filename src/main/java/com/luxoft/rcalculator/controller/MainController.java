@@ -122,10 +122,4 @@ public class MainController {
             return new ResponseEntity<>(retirementResultDTO, HttpStatus.OK);
         }
     }
-
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
-        userService.add(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
 }

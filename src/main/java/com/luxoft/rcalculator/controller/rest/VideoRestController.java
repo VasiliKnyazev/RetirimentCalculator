@@ -18,35 +18,35 @@ public class VideoRestController {
         this.videoService = videoService;
     }
 
-    @GetMapping("/rest/videos")
+    @GetMapping("/rest/admin/videos")
     public ResponseEntity<List<Video>> findAll() {
         return new ResponseEntity<>(videoService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/rest/videos/titles")
+    @GetMapping("/rest/user/videos/titles")
     public ResponseEntity<List<String>> findAllTitles() {
         List<String> titles = videoService.findAllTitles();
         return new ResponseEntity<>(titles, HttpStatus.OK);
     }
 
-    @GetMapping("/rest/videos/{videoTitle}")
+    @GetMapping("/rest/user/videos/{videoTitle}")
     public ResponseEntity<Video> findByTitle(@PathVariable String videoTitle) {
         return new ResponseEntity<>(videoService.findByTitle(videoTitle), HttpStatus.OK);
     }
 
-    @DeleteMapping("/rest/videos/{videoId}")
+    @DeleteMapping("/rest/admin/videos/{videoId}")
     public ResponseEntity<Boolean> deleteVideo(@PathVariable int videoId) {
         videoService.deleteById(videoId);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-    @PostMapping("/rest/videos")
+    @PostMapping("/rest/admin/videos")
     public ResponseEntity<Video> addVideo(@Valid @RequestBody Video video) {
         videoService.add(video);
         return new ResponseEntity<>(video, HttpStatus.OK);
     }
 
-    @PutMapping("/rest/videos")
+    @PutMapping("/rest/admin/videos")
     public ResponseEntity<Video> editVideo(@Valid @RequestBody Video video) {
         videoService.edit(video);
         return new ResponseEntity<>(video, HttpStatus.OK);

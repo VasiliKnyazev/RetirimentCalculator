@@ -1,6 +1,6 @@
 $( function() {
     $.ajax({
-        url: 'rest/videos/titles',
+        url: '/rest/user/videos/titles',
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -19,7 +19,7 @@ $( function() {
 function findVideoByTitle() {
     let videoTitle = document.getElementById("videoTitleId").value;
     $.ajax({
-        url: 'rest/videos/' + videoTitle,
+        url: '/rest/user/videos/' + videoTitle,
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -35,7 +35,7 @@ function findVideoByTitle() {
 function findContent() {
     let videoTitle = document.getElementById("tags").value;
     $.ajax({
-        url: 'rest/videos/' + videoTitle,
+        url: '/rest/user/videos/' + videoTitle,
         type: 'GET',
         dataType: 'json',
         success: function(data) {

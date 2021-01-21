@@ -53,7 +53,6 @@ function calculate(){
         //$('#userCanRetirementYearDivInside').append('<wbr><h5>' + '<font color="' + randomColor + '">Not all data has been entered</font></h5>');
         $('#userCanRetirementYearDivInside').append('<wbr><h5>Not all required fields were filled</h5>');
     }
-
 }
 
 //REGISTER
@@ -74,7 +73,7 @@ function showRegisterModal() {
                     'Content-Type': 'application/json'
                 },
                 type: 'POST',
-                url: '/register',
+                url: '/rest/user/register',
                 data: JSON.stringify({
                     name: registerName,
                     login: registerLogin,
@@ -101,6 +100,5 @@ function showRegisterModal() {
         } else {
             $('#userRegisterModalDivInside').empty().append('<wbr><h5>Not all required fields were filled</h5>');
         }
-
     });
 }

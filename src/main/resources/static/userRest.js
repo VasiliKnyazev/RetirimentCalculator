@@ -1,7 +1,7 @@
 //TABLE
 $(function(){
     $.ajax({
-        url: 'rest/users',
+        url: '/rest/admin/users',
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -39,7 +39,7 @@ function createUser() {
             'Content-Type': 'application/json'
         },
         type: 'POST',
-        url: '/rest/users',
+        url: '/rest/admin/users',
         data: JSON.stringify({
             name: createName,
             login: createLogin,
@@ -68,7 +68,7 @@ function createUser() {
 //UPDATE
 function showUpdateModal(id) {
     $.ajax({
-        url: 'rest/users/' + id,
+        url: 'rest/admin/users/' + id,
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -142,7 +142,7 @@ function deleteUser(userId) {
             'Content-Type': 'application/json'
         },
         type: 'DELETE',
-        url: '/rest/users/' + userId,
+        url: '/rest/admin/users/' + userId,
         contentType: "application/json",
         dataType: 'json',
         success: function() {
