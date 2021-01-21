@@ -19,7 +19,7 @@ public class Video {
 
     @NotNull
     @Size(min = 1)
-    @Column(name = "url", nullable = false)
+    @Column(name = "url", columnDefinition = "text", nullable = false)
     private String url;
 
     @NotNull
