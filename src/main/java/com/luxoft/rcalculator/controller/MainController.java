@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.luxoft.rcalculator.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller

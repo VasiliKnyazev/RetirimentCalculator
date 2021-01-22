@@ -1,6 +1,7 @@
 package com.luxoft.rcalculator.service;
 
 import com.luxoft.rcalculator.model.Video;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface VideoService {
     void deleteById(int videoId);
 
     void edit(Video video);
+
+    Page<Video> findPaginated(int pageNumber, int pageSize);
 
 }
