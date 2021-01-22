@@ -25,6 +25,6 @@ public interface VideoService {
 
     void edit(Video video);
 
-    Page<Video> findPaginated(int pageNumber, int pageSize);
+    Page<Video> findVideoPage(int pageNumber, int pageSize);
 
 }

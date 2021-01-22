@@ -66,8 +66,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Page<Video> findPaginated(int pageNumber, int pageSize) {
+    public Page<Video> findVideoPage(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-        return null;
+        return videoRepository.findAll(pageable);
     }
 }

@@ -1,7 +1,9 @@
 package com.luxoft.rcalculator.controller.rest;
 
 import com.luxoft.rcalculator.model.Video;
+import com.luxoft.rcalculator.model.dto.VideoPageDTO;
 import com.luxoft.rcalculator.service.VideoService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,12 @@ public class VideoRestController {
     public ResponseEntity<Video> editVideo(@Valid @RequestBody Video video) {
         videoService.edit(video);
         return new ResponseEntity<>(video, HttpStatus.OK);
+    }
+
+    @PostMapping("/rest/admin/videos/page")
+    public ResponseEntity<Page<Video>> findVideoPage(@RequestBody VideoPageDTO videoPageDTO) {
+        Page<Video> page = videoService.findVideoPage(videoPageDTO.getPageNumber(), videoPageDTO.getPageSize());
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
 }
