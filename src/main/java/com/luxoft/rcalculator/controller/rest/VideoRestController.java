@@ -31,6 +31,11 @@ public class VideoRestController {
         return new ResponseEntity<>(titles, HttpStatus.OK);
     }
 
+    @GetMapping("/rest/admin/videos/{videoId}")
+    public ResponseEntity<Video> findById(@PathVariable int videoId) {
+        return new ResponseEntity<>(videoService.findById(videoId), HttpStatus.OK);
+    }
+
     @GetMapping("/rest/user/videos/{videoTitle}")
     public ResponseEntity<Video> findByTitle(@PathVariable String videoTitle) {
         return new ResponseEntity<>(videoService.findByTitle(videoTitle), HttpStatus.OK);
@@ -48,7 +53,7 @@ public class VideoRestController {
         return new ResponseEntity<>(video, HttpStatus.OK);
     }
 
-    @PutMapping("/rest/admin/videos")
+    @PutMapping("/admin/rest/videos")
     public ResponseEntity<Video> editVideo(@Valid @RequestBody Video video) {
         videoService.edit(video);
         return new ResponseEntity<>(video, HttpStatus.OK);
