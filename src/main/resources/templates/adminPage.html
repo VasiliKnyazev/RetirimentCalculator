@@ -1,6 +1,6 @@
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin Page</title>
+    <title>Admin Page "Users"</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -50,11 +50,12 @@
 
 <div class="row">
     <div class="col-lg-2" style="background-color:rgb(245,245,245);">
-        <form action="/admin"><button type="submit" class="btn btn-primary btn-lg btn-block">admin page</button></form>
-        <form action="/user"><button type="submit" class="btn btn-light btn-lg btn-block">user page</button></form>
+        <form action="/admin"><button type="submit" class="btn btn-primary btn-lg btn-block">Admin page "Users"</button></form>
+        <form action="/admin/videos"><button type="submit" class="btn btn-light btn-lg btn-block">Admin page "Videos"</button></form>
+        <form action="/admin/user"><button type="submit" class="btn btn-light btn-lg btn-block">User page</button></form>
     </div>
     <div class="col-lg-10" style="background-color:rgb(235,235,235);">
-        <h3>Admin page. You logged in as: <span sec:authentication="name"></span></h3>
+        <h3>Admin page "Users". You logged in as: <span sec:authentication="name"></span></h3>
         <!--tabs-->
         <div class="container mt-3">
             <br>

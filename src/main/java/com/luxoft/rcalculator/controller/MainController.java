@@ -50,8 +50,21 @@ public class MainController {
     }
 
     @GetMapping(value = "/admin")
-    public String adminPage(Model model) {
+    public String adminPage() {
         return "adminPage";
+    }
+
+    @GetMapping(value = "/admin/user")
+    public String adminUserPage(@ModelAttribute("user") User user, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+        model.addAttribute("user", userDetail);
+        return "adminUserPage";
+    }
+
+    @GetMapping(value = "/admin/videos")
+    public String adminPageVideos() {
+        return "adminPageVideos";
     }
 
     @RequestMapping(value = { "/", "/login" }, method = {RequestMethod.GET, RequestMethod.POST})
