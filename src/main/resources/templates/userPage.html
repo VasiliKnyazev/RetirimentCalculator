@@ -32,6 +32,9 @@
             padding-top: 25px;
             padding-left: 50px;
         }
+        .container-fluid {
+            display: flex;
+        }
     </style>
 </head>
 <body>
@@ -51,11 +54,6 @@
 </nav>
 
 <div class="row">
-    <!--<div class="col-lg-2" style="background-color:rgb(245,245,245);">
-        <form action="/admin"><button type="submit" class="btn btn-light btn-lg btn-block">Admin page "Users"</button></form>
-        <form action="/admin/videos"><button type="submit" class="btn btn-light btn-lg btn-block">Admin page "Videos"</button></form>
-        <form action="/user"><button type="submit" class="btn btn-primary btn-lg btn-block">User page</button></form>
-    </div>-->
     <div class="col-lg-12" style="background-color:rgb(235,235,235);">
         <h3>
             <p>User page:</p>
@@ -63,16 +61,30 @@
             <p>Name: <span th:text="${user.name}"></span></p>
             <p>Email: <span th:text="${user.email}"></span></p>
         </h3>
-        <!--<div class="search-container">
-            <input type="text" id="videoTitleId" placeholder="Search.." name="search">
-            <button type="submit" onclick="findVideoByTitle();">🔍</button>
-        </div>-->
-        <div class="ui-widget">
+        <center><div class="ui-widget">
             <label for="tags">Search: </label>
             <input id="tags" size = "75">
             <button type="submit" onclick="findContent()">🔍</button>
         </div>
-        <div class="ui-icon-video" id="videoContentId"></div>
+        <div id="videoContentId"></div></center>
+    </div>
+</div>
+
+<!--VIDEO MODAL-->
+<div id="videoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color:rgb(235,235,235);">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="videoModalContentId"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
 
